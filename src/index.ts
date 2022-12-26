@@ -4,6 +4,7 @@ import { CsvFileReader } from './CsvFileReader';
 import { Summary } from './Summary';
 import { WinsAnalysis } from './analyzers/WinsAnalysis';
 import { ConsoleReport } from './reportTargets/ConsoleReport';
+import { HtmlReport } from './reportTargets/HtmlReport';
 //inheritance
 // const reader = new MatchReader('football.csv');
 // reader.read();
@@ -34,9 +35,10 @@ const matchReader = new MatchReader(csvFileReader);
 matchReader.load();
 
 
-const wins = new WinsAnalysis('Man United');
+const wins = new WinsAnalysis('Chelsea');
 const consoleReport = new ConsoleReport();
+const htmlReport = new HtmlReport('chelseawins.html');
 
-const summary = new Summary(wins, consoleReport);
+const summary = new Summary(wins, htmlReport);
 
 summary.buildAndPrintReport(matchReader.matches);
