@@ -1,10 +1,14 @@
 import { MatchReader } from './MatchReader';
 import { MatchResult } from './MatchResult';
 import { CsvFileReader } from './CsvFileReader';
+import { Summary } from './Summary';
+import { WinsAnalysis } from './analyzers/WinsAnalysis';
+import { ConsoleReport } from './reportTargets/ConsoleReport';
 //inheritance
 // const reader = new MatchReader('football.csv');
 // reader.read();
 
+/**
 // create an object that satisfies the 'DataReader' interface
 let csvFileReader = new CsvFileReader('football.csv');
 
@@ -22,3 +26,17 @@ for (let match of matchReader.matches) {
 }
 
 console.log(`Man United won ${manUnitedWins} games`);
+**/
+
+
+const csvFileReader = new CsvFileReader('football.csv');
+const matchReader = new MatchReader(csvFileReader);
+matchReader.load();
+
+
+const wins = new WinsAnalysis('Man United');
+const consoleReport = new ConsoleReport();
+
+const summary = new Summary(wins, consoleReport);
+
+summary.buildAndPrintReport(matchReader.matches);
